@@ -64,33 +64,32 @@ public class assignment1 {
   public static Hashtable readText(String filename) throws java.io.IOException {
     Hashtable<String, Integer> dict = new Hashtable<String, Integer>(50000);
     BufferedReader text = new BufferedReader(new FileReader(filename));
-    StringBuilder currentLine;
     String line = "";
     String word = "";
-    char temp;
+    char currentChar;
     Integer count = 0;
-    int start = -1;
+    int start = 0;
     int lineCount = 0;
     int wordCount = 0;
 
     line = text.readLine().toLowerCase();
-    currentLine = new StringBuilder(line);
     while(line != null) {
-      start = -1;
+      start = 0;
       lineCount++;
 
-      for(int i = 0; i < currentLine.length(); i++) {
-        temp = currentLine.charAt(i);
+      for(int i = 0; i < line.length(); i++) {
+        currentChar = line.charAt(i);
 
-        if(!(temp >= 65 && temp <= 90 || temp >= 97 && temp <= 122 || temp >= 48 && temp <= 57  || temp == 32)) {
-          currentLine.replace(i, i+1, " ");
-          temp = ' ';
+        if(!Character.isLetterOrDigit(currentChar) && i == start + 1) {
+          start = i;
         }
 
-        if(temp == 32 && i == start + 1 || temp == 32 && i == start) {temp = 0; start = i;};
-        if(temp == 32) {
-          word = currentLine.substring(start + 1, i);
-          if(word != " ") {
+        else {
+          if(!Character.isLetterOrDigit(currentChar) || i == line.length() - 1 ) {
+            
+            if(i == line.length()-1){i = i+1;};
+
+            word = line.substring(start, i);
             count = dict.get(word);
             if(count == null) {
               dict.put(word, 1);
@@ -98,23 +97,7 @@ public class assignment1 {
             else {
               dict.put(word, count+1);
             }
-            wordCount++;
-          }
-          start = i;
-        }
-      }
-
-      if(currentLine.length() > 0) {
-        if(start == -1){ start = 0;};
-        word = currentLine.substring(start, currentLine.length());
-        if(word != " ") {
-          wordCount++;
-          count = dict.get(word);
-          if(count == null) {
-            dict.put(word, 1);
-          }
-          else {
-            dict.put(word, count+1);
+            start = i+1;
           }
         }
       }
@@ -122,13 +105,8 @@ public class assignment1 {
       line = text.readLine();
       if(line != null) {
         line = line.toLowerCase();
-        currentLine = new StringBuilder(line);
       }
     }
-
-    //Even though lines 48 and 65 prevent " " from being added it still gets added so im removing it manually if it gets added
-    if (dict.remove(" ") != null){wordCount--;};
-
     System.out.println(filename + " has " + lineCount + " lines, "  +  wordCount + " words, and " + dict.size() + " unique words.");
     return dict;
   }
