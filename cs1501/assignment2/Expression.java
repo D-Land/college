@@ -158,6 +158,7 @@ public class Expression {
       tree.right = normalize(tree.right);
       tree.left = normalize(tree.left);
     }
+
     return tree;
   }
 

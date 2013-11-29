@@ -27,7 +27,7 @@ public class assignment1 {
         System.out.println("Distance: " + 0.0/0.0);
       }
     }
-    System.out.println("Time Elapsed: " + timer.elapsedTime());
+    System.out.println("Time Elapsed: " + timer.elapsedTime() + "s");
   }
 
   public static void doMath(Hashtable text1, Hashtable text2) {
@@ -59,7 +59,7 @@ public class assignment1 {
     }
     
     distance = Math.acos(innerProduct / (text1Norm * text2Norm));
-    System.out.println("Distance: " + distance);
+    System.out.printf("Distance: %.6f radians\n", distance);
   }
 
   public static Hashtable readText(String filename) throws java.io.IOException {
