@@ -1,3 +1,10 @@
+/*
+ * Andrew Land
+ * Assignment 5
+ * aml135
+ * 3688776
+ */
+
 import java.util.ArrayList;
 
 public class MoveToFront{
@@ -21,16 +28,17 @@ public class MoveToFront{
   public static void encode(){
     ArrayList<Character> alphabet = alphabet();
     Character input;
-    int index;
+    char index;
 
     while(!BinaryStdIn.isEmpty()){
       input = (Character)BinaryStdIn.readChar();
-      index = (int)alphabet.indexOf(input);
+      index = (char)alphabet.indexOf(input);
       BinaryStdOut.write(index);
 
       alphabet.remove(index);
       alphabet.add(0, input);
     }
+    BinaryStdOut.close();
   }
 
   public static void decode(){
@@ -46,6 +54,7 @@ public class MoveToFront{
       alphabet.remove(index);
       alphabet.add(0, output);
     }
+    BinaryStdOut.close();
   }
 
   private static ArrayList<Character> alphabet(){
